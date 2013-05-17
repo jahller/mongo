@@ -1,0 +1,4 @@
+MongoBundle:
+    resource: "@OnemediaMongoBundle/Controller/"
+    type:     annotation
+    prefix:   /
