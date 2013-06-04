@@ -48,15 +48,17 @@ class DefaultController extends Controller
      */
     public function showAction($id)
     {
-        $repository = $this->get('doctrine_mongodb')->getManager()->getRepository('OnemediaMongoBundle:Person');
-        $person = $repository->find($id);
+        $repository = $this->get('doctrine_mongodb')
+            ->getManager()
+            ->getRepository('OnemediaMongoBundle:Person');
+        $persons = $repository->findAll();
 
-        if (!$person) {
-            throw $this->createNotFoundException('No persons called '.$person->getName());
+        if (!$persons) {
+            throw $this->createNotFoundException('No persons found');
         }
 
         return $this->render('OnemediaMongoBundle:Default:show.html.twig', array(
-            'person' => $person
+            'persons' => $persons
         ));
     }
 }

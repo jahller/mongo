@@ -1,4 +1,6 @@
-<p>
-    Name {{ person.getName() }}<br/>
-    Age {{ person.age }}
-</p>
+{% for person in persons %}
+    <p>
+        Name {{ person.getName() }}<br/>
+        Age {{ person.age }}
+    </p>
+{% endfor %}

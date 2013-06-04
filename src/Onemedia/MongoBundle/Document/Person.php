@@ -4,6 +4,8 @@ namespace Onemedia\MongoBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
+use Onemedia\MongoBundle\Document\Country;
+
 /**
  * Class Person
  * @package Onemedia\MongoBundle\Document
@@ -26,6 +28,11 @@ class Person
      * @MongoDB\Int
      */
     protected $age;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Country", cascade="remove")
+     */
+    protected $country;
 
     public function getId()
     {
@@ -55,4 +62,15 @@ class Person
     {
         return $this->age;
     }
+
+    public function setCountry(Country $country = null)
+    {
+        $this->country = $country;
+    }
+
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
 }
