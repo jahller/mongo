@@ -73,4 +73,9 @@ class Person
         return $this->country;
     }
 
+    public function get($attribute)
+    {
+        return $this->$attribute;
+    }
+
 }

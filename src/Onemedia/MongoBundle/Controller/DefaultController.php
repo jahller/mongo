@@ -2,7 +2,9 @@
 
 namespace Onemedia\MongoBundle\Controller;
 
+use Onemedia\MongoBundle\Form\SeedType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -12,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Doctrine\ODM\MongoDB\DocumentManager;
 
 use Onemedia\MongoBundle\Document\Person;
+use Onemedia\MongoBundle\Form\ConfigurationType;
 
 /**
  * @Route("/default")
@@ -43,10 +46,10 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/show/{id}", name="default_show")
+     * @Route("/show", name="default_show")
      * @Method({"get"})
      */
-    public function showAction($id)
+    public function showAction()
     {
         $repository = $this->get('doctrine_mongodb')
             ->getManager()
@@ -59,6 +62,24 @@ class DefaultController extends Controller
 
         return $this->render('OnemediaMongoBundle:Default:show.html.twig', array(
             'persons' => $persons
+        ));
+    }
+
+    /**
+     * @Route("/configuration", name="configuration")
+     * @Method({"post", "get"})
+     */
+    public function configurationAction(Request $request)
+    {
+        $form = $this->createForm(new ConfigurationType());
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            echo 'Success';
+        }
+
+        return $this->render('OnemediaMongoBundle:Default:configuration.html.twig', array(
+            'form' => $form->createView(),
         ));
     }
 }
